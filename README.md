@@ -1,7 +1,7 @@
 # Face Mask Detection: Multi-Method Approach
 
 ## I. Introduction
-This project aims to develop and evaluate multiple approaches for face mask detection, a crucial task that gained significant importance during the COVID-19 pandemic. The project is structured around three primary objectives:
+This project aims to develop and evaluate multiple approaches for face mask detection. The project is structured around three primary objectives:
 
 1. **Traditional Machine Learning Classification:** Implementing feature-based approaches with classical ML classifiers (SVM, Neural Network) to distinguish between faces with and without masks.
 2. **CNN-Based Classification:** Developing a convolutional neural network architecture for binary classification of masked vs. unmasked faces, with hyperparameter experimentation.
