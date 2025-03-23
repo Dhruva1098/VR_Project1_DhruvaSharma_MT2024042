@@ -144,7 +144,7 @@ MFSD Dataset/
    - Early stopping: patience=10 (monitor val_loss)
    - Model checkpoint: save best model based on val_accuracy
    - Epochs: up to 30 (with early stopping)
-
+![title][Images/Unknown-5.png]
 ### Task 3: Region Segmentation Using Traditional Techniques
 
 1. **Preprocessing**:
@@ -182,7 +182,7 @@ MFSD Dataset/
    - Normalization: image values scaled to [0,1]
    - Binarization of masks: `mask = (mask > 127).astype(np.float32)`
    - Train/test split: 80%/20%
-
+![title][Images/Unknown-8.png]
 2. **U-Net Architecture**:
    ```python
    # Encoder
@@ -212,6 +212,9 @@ MFSD Dataset/
    
    outputs = tf.keras.layers.Conv2D(1, 1, activation='sigmoid')(conv5)
    ```
+![title](Images/U-net_arch.png]
+![title][Images/Unknown-9.png]
+
 
 3. **Training Process**:
    - Loss: Binary Cross-Entropy
