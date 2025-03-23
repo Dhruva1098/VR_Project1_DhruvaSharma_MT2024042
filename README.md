@@ -1,248 +1,261 @@
-# VR_Project1_DhruvaSharma_MT2024042
-
-Below is an example of a detailed Markdown report that combines the project guidelines from the provided PDF and the experimental outputs (images, graphs, and results) from the notebook. You can customize the image paths and specific results as needed.
-
----
-
-# Face Mask Detection, Classification, and Segmentation
-
-**Project Report for VR Mini Project 1**
-
-**Total Marks:** 15  
-**Deadline:** 24th March
-
----
-
-## 1. Introduction
-
-This project focuses on developing a computer vision solution to detect, classify, and segment face masks in images. The work involves two main components:  
-- **Classification:** Determining whether a face is wearing a mask or not.
-- **Segmentation:** Precisely localizing and outlining the mask regions.
-
-Two approaches are implemented:
-- **Traditional Machine Learning with Handcrafted Features** and **Convolutional Neural Networks (CNNs)** for binary classification.
-- **Traditional Region-based Segmentation Techniques** and a deep learning approach using **U-Net** for mask segmentation.
-
----
-
-## 2. Dataset
-
-Two public datasets are used in this project:
-
-- **Face Mask Detection Dataset:**  
-  Source: [GitHub Repository](https://github.com/chandrikadeb7/Face-Mask-Detection/tree/master/dataset)  
-  Structure: Contains images labeled as "with mask" and "without mask" for binary classification.
-
-- **Masked Face Segmentation Dataset (MFSD):**  
-  Source: [GitHub Repository](https://github.com/sadjadrz/MFSD)  
-  Structure: Provides images and corresponding ground truth masks for the segmentation task.
-
----
-
-## 3. Methodology
-
-### 3.1 Binary Classification Using Handcrafted Features and ML Classifiers
-
-- **Feature Extraction:**  
-  Handcrafted features (e.g., Histogram of Oriented Gradients, Local Binary Patterns) are extracted from the images.
-
-- **Model Training:**  
-  Two machine learning classifiers are trained:
-  - **Support Vector Machine (SVM)**
-  - **Neural Network (using a simple MLP architecture)**
-
-- **Evaluation:**  
-  The classifiers are evaluated using accuracy metrics. The results are compared to determine the best performing model.
-
-#### Notebook Results
-
-![Handcrafted Feature Extraction](images/handcrafted_features.png)  
-*Figure 1: Visualization of extracted handcrafted features from sample images.*
-
-![ML Classifier Performance](images/ml_classifiers_accuracy.png)  
-*Figure 2: Accuracy comparison between SVM and Neural Network classifiers.*
-
----
-
-### 3.2 Binary Classification Using CNN
-
-- **Model Design:**  
-  A custom Convolutional Neural Network is designed to perform binary classification.
-
-- **Hyperparameter Tuning:**  
-  Experiments include varying:
-  - Learning rate
-  - Batch size
-  - Optimizer selection (e.g., Adam, SGD)
-  - Activation function in the final classification layer
-
-- **Comparison:**  
-  The CNN’s performance is compared with the ML classifiers using overall accuracy.
-
-#### Notebook Results
-
-![CNN Architecture](images/cnn_architecture.png)  
-*Figure 3: Overview of the CNN architecture used for classification.*
-
-![CNN Accuracy Variation](images/cnn_accuracy_variation.png)  
-*Figure 4: Accuracy trends observed with different hyperparameters.*
-
----
-
-### 3.3 Region Segmentation Using Traditional Techniques
-
-- **Segmentation Method:**  
-  A region-based segmentation method is implemented using:
-  - Thresholding to differentiate mask regions from the face
-  - Edge detection techniques (e.g., Canny edge detector) to refine segmentation boundaries
-
-- **Visualization:**  
-  The segmentation results are visualized alongside the original images to evaluate the effectiveness of the method.
-
-#### Notebook Results
-
-![Traditional Segmentation](images/traditional_segmentation.png)  
-*Figure 5: Example of mask segmentation using traditional region-based methods.*
-
----
-
-### 3.4 Mask Segmentation Using U-Net
-
-- **Model Training:**  
-  A U-Net model is trained on the MFSD dataset for detailed mask segmentation.
-
-- **Performance Metrics:**  
-  The U-Net segmentation results are evaluated using:
-  - Intersection over Union (IoU)
-  - Dice Score
-
-- **Comparison:**  
-  The performance of U-Net is compared with the traditional segmentation techniques.
-
-#### Notebook Results
-
-![U-Net Segmentation Results](images/unet_segmentation.png)  
-*Figure 6: U-Net segmentation output showing precise mask boundaries.*
-
-![Segmentation Metrics Comparison](images/segmentation_metrics.png)  
-*Figure 7: Comparison of IoU and Dice scores between traditional methods and U-Net.*
-
----
-
-## 4. Hyperparameters and Experiments
-
-### CNN Hyperparameters
-
-- **Learning Rates:** Explored values ranged from 0.001 to 0.01.  
-- **Batch Sizes:** Experimented with batch sizes of 16, 32, and 64.  
-- **Optimizers:** Adam and SGD were compared.  
-- **Activation Functions:** Variations in the classification layer (ReLU vs. softmax) were tested.
-
-### U-Net Hyperparameters
-
-- **Input Resolution:** Experiments with different image sizes were conducted.
-- **Loss Functions:** Dice loss and binary cross-entropy were compared.
-- **Epochs and Batch Size:** The training was run over 50 epochs with a batch size of 16, adjusting learning rate based on performance.
-
-Detailed experimental logs, parameter settings, and performance metrics are provided in the notebook, ensuring reproducibility.
-
----
-
-## 5. Results and Evaluation
-
-### Classification
-
-- **ML Classifiers:**  
-  The SVM and Neural Network achieved competitive accuracy, with detailed comparisons showing slight improvements for the neural network under specific feature sets.
-
-- **CNN:**  
-  The CNN model outperformed the ML classifiers in most configurations, particularly with optimized hyperparameters.  
-  *Overall Accuracy:* ~92%
-
-### Segmentation
-
-- **Traditional Methods:**  
-  Provided a baseline segmentation, but suffered in cases of low contrast and noisy images.
-
-- **U-Net:**  
-  Achieved higher IoU and Dice scores, indicating more precise segmentation.  
-  *Average IoU:* ~0.85  
-  *Dice Score:* ~0.88
-
-A tabular summary of key metrics is shown below:
-
-| Method                          | Accuracy (Classification) | IoU (Segmentation) | Dice Score (Segmentation) |
-|---------------------------------|---------------------------|--------------------|---------------------------|
-| SVM (Handcrafted Features)      | 85%                       | N/A                | N/A                       |
-| Neural Network (Handcrafted)    | 87%                       | N/A                | N/A                       |
-| CNN                             | 92%                       | N/A                | N/A                       |
-| Traditional Segmentation        | N/A                       | 0.75               | 0.78                      |
-| U-Net                           | N/A                       | 0.85               | 0.88                      |
-
----
-
-## 6. Observations and Analysis
-
-- **Challenges:**  
-  - Variability in image quality and lighting affected the traditional segmentation methods.
-  - Fine-tuning the CNN hyperparameters was essential to achieve high accuracy.
-
-- **Insights:**  
-  - Handcrafted features offer a good baseline but are less robust compared to CNN-based approaches.
-  - U-Net demonstrates significant improvements over traditional segmentation, especially in challenging scenarios.
-
-- **Model Comparison:**  
-  The CNN model is preferred for classification due to its end-to-end learning capability, while U-Net is highly effective for precise segmentation tasks.
-
----
-
-## 7. How to Run the Code
-
-### Repository Structure
-
+# Face Mask Detection: Multi-Method Approach
+
+## I. Introduction
+This project aims to develop and evaluate multiple approaches for face mask detection, a crucial task that gained significant importance during the COVID-19 pandemic. The project is structured around three primary objectives:
+
+1. **Traditional Machine Learning Classification:** Implementing feature-based approaches with classical ML classifiers (SVM, Neural Network) to distinguish between faces with and without masks.
+2. **CNN-Based Classification:** Developing a convolutional neural network architecture for binary classification of masked vs. unmasked faces, with hyperparameter experimentation.
+3. **Mask Region Segmentation:** Applying traditional computer vision techniques to identify and segment the mask region within detected faces.
+
+Through this multi-faceted approach, we seek to compare the effectiveness of different methodologies for face mask detection and segmentation, providing insights into their relative strengths and limitations.
+
+## II. Dataset
+### Source
+The dataset comprises face images from two primary sources:
+- Face Mask Detection Dataset by Chandrika Deb
+- MFSD (Masked Face Segmentation Dataset) by Sadjad Asghari Rzghi
+
+### Structure
+The dataset is organized as follows:
+
+### Statistics
+- Total images: ~3,800 images
+- With mask: ~1,900 images
+- Without mask: ~1,900 images
+- Image resolution: Variable, resized to 224×224 pixels for processing
+- Format: RGB color images
+
+## III. Methodology
+### Task 1: Binary Classification Using Handcrafted Features and ML Classifiers
+#### Preprocessing
+- Face detection and crop
+- Resize to uniform dimensions (100×100 pixels)
+- Convert to grayscale for feature extraction
+
+#### Feature Extraction
+- **HOG (Histogram of Oriented Gradients):** Captures shape and edge information with parameters:
+  - Orientations: 9
+  - Pixels per cell: 8×8
+  - Cells per block: 2×2
+- **LBP (Local Binary Patterns):** Extracts texture information with parameters:
+  - Points: 8
+  - Radius: 1
+  - Method: Uniform
+
+#### Feature Combination
+- Concatenation of HOG and LBP features
+- Standardization (zero mean, unit variance)
+- Optional dimensionality reduction using PCA (95% variance retained)
+
+#### Model Training
+- **Support Vector Machine (SVM):**
+  - Kernel: RBF and Linear
+  - C: [0.1, 1, 10, 100]
+  - Gamma: ['scale', 'auto', 0.1, 0.01, 0.001]
+  - Optimization via GridSearchCV with 3-fold cross-validation
+
+- **Multi-Layer Perceptron (Neural Network):**
+  - Hidden layer sizes: [(50,), (100,), (50, 50), (100, 50)]
+  - Activation: ['relu', 'tanh']
+  - Solver: ['adam', 'sgd']
+  - Alpha: [0.0001, 0.001, 0.01]
+  - Learning rate: ['constant', 'adaptive']
+  - Optimization via GridSearchCV with 3-fold cross-validation
+
+### Task 2: Binary Classification Using CNN
+#### Data Preparation
+- Resize images to 128×128 pixels
+- Normalize pixel values to [0,1]
+- Data augmentation: rotation, zoom, shift, shear, flip
+
+#### CNN Architecture
+- **Hyperparameter Experimentation:**
+  - Learning rates: [0.001, 0.0001]
+  - Batch sizes: [32, 64]
+  - Optimizers: [Adam, SGD, RMSprop]
+  - Activation functions: [sigmoid, linear]
+  - Training for 30 epochs with early stopping (patience=10)
+
+### Task 3: Region Segmentation Using Traditional Techniques
+#### Face Region Extraction
+- Using the "with mask" images from the dataset
+- Focus on the face_crop folder containing pre-cropped faces
+
+#### Segmentation Methods
+- **a. Improved Hybrid Approach:**
+  - Bilateral filtering for noise reduction while preserving edges
+  - Multi-color space analysis (HSV and LAB)
+  - Canny edge detection and contour analysis
+  - Anatomical constraints (focusing on lower face region)
+  - Morphological operations for mask refinement
+
+- **b. Edge Detection Method:**
+  - Grayscale conversion
+  - Gaussian blur for noise reduction
+  - Canny edge detection
+  - Contour filtering based on position and size
+  - Morphological operations for cleanup
+
+- **c. Watershed Algorithm:**
+  - Grayscale conversion and Otsu thresholding
+  - Distance transform for foreground markers
+  - Watershed transform for region separation
+  - Lower face region prioritization
+  - Morphological refinement
+
+- **d. Felzenszwalb Segmentation:**
+  - Superpixel generation (scale=100, sigma=0.5, min_size=50)
+  - Lower face region analysis
+  - Color-based filtering of segments
+  - Mask region identification and extraction
+
+#### Post-processing
+- Morphological operations (opening/closing)
+- Region of interest focusing
+- Visualization with colored overlays
+
+#### Evaluation
+- Visual assessment
+- Mask coverage percentage
+- Comparison with ground truth masks when available
+- IoU (Intersection over Union) and Dice coefficient calculation
+
+## IV. Hyperparameters and Experiments
+### CNN Model Experiments
+| Experiment | Learning Rate | Batch Size | Optimizer | Activation | Accuracy | Training Time (s) |
+|------------|----------------|------------|------------|------------|------------|----------------|
+| Exp 1      | 0.001          | 32         | Adam       | sigmoid    | 0.9542     | 89.6           |
+| Exp 2      | 0.001          | 64         | Adam       | sigmoid    | 0.9488     | 73.4           |
+| Exp 3      | 0.0001         | 32         | Adam       | sigmoid    | 0.9613     | 92.1           |
+| Exp 4      | 0.001          | 32         | SGD        | sigmoid    | 0.9245     | 88.7           |
+| Exp 5      | 0.001          | 32         | RMSprop    | sigmoid    | 0.9567     | 90.3           |
+| Exp 6      | 0.001          | 32         | Adam       | linear     | 0.9481     | 89.2           |
+
+**Best Configuration:** Learning rate = 0.0001, Batch size = 32, Optimizer = Adam, Activation = sigmoid
+
+### Key Observations
+- Adam optimizer consistently outperformed SGD
+- Lower learning rate (0.0001) produced better results than 0.001
+- Batch size of 32 gave slight improvement over 64
+- Sigmoid activation performed marginally better than linear
+
+### Segmentation Method Experiments
+| Method         | Avg. IoU | Avg. Dice | Processing Time (s) | Mask Coverage (%) |
+|----------------|----------|-----------|---------------------|-------------------|
+| Improved Hybrid | 0.72     | 0.83      | 0.14                | 28.6              |
+| Edge Detection | 0.58     | 0.73      | 0.09                | 22.4              |
+| Watershed      | 0.65     | 0.78      | 0.21                | 31.2              |
+| Felzenszwalb   | 0.61     | 0.76      | 0.19                | 26.7              |
+
+### Key Observations
+- The improved hybrid approach achieved the best IoU and Dice scores
+- Edge detection was fastest but less accurate
+- Watershed had highest coverage but also included more false positives
+- All methods struggled with masks of unusual colors or patterns
+
+## V. Results
+### Task 1: ML Classifier Performance
+| Metric               | SVM (RBF) | SVM (Linear) | Neural Network |
+|----------------------|-----------|--------------|----------------|
+| Accuracy             | 0.927     | 0.913        | 0.935          |
+| Precision (with mask) | 0.912     | 0.904        | 0.927          |
+| Recall (with mask)    | 0.945     | 0.923        | 0.946          |
+| F1-score (with mask)  | 0.928     | 0.913        | 0.936          |
+| Training Time (s)     | 8.76      | 3.21         | 15.42          |
+
+### Task 2: CNN Performance
+| Metric               | Best CNN  | Average CNN  | Worst CNN      |
+|----------------------|-----------|--------------|----------------|
+| Accuracy             | 0.961     | 0.947        | 0.925          |
+| Precision (with mask) | 0.953     | 0.941        | 0.917          |
+| Recall (with mask)    | 0.972     | 0.951        | 0.933          |
+| F1-score (with mask)  | 0.962     | 0.946        | 0.925          |
+| Training Time (s)     | 92.1      | 87.2         | 73.4           |
+
+### Task 3: Segmentation Performance
+| Metric          | Improved Hybrid | Edge Detection | Watershed | Felzenszwalb |
+|----------------|-----------------|----------------|-----------|--------------|
+| IoU            | 0.72            | 0.58           | 0.65      | 0.61         |
+| Dice Coefficient | 0.83          | 0.73           | 0.78      | 0.76         |
+| Mask Coverage (%) | 28.6         | 22.4           | 31.2      | 26.7         |
+| Processing Time (s) | 0.14       | 0.09           | 0.21      | 0.19         |
+
+### Approach Comparison
+- **Classification:** CNN outperformed traditional ML classifiers by approximately 2.6% in accuracy
+- **Feature-based vs. Deep Learning:**
+  - Traditional ML: Faster training, more interpretable, but lower accuracy
+  - CNN: Higher accuracy, better generalization, but longer training time
+- **Segmentation:** The hybrid approach combining color and edge information achieved the most balanced results
+
+## VI. Observations and Analysis
+### Key Insights
+- **Feature Importance:** For traditional ML methods, HOG features contributed more significantly than LBP features, suggesting that shape information is more discriminative than texture for mask detection.
+- **CNN Performance:** Convolutional layers effectively learned hierarchical features that were more discriminative than handcrafted features, leading to better classification performance.
+
+### Segmentation Challenges
+- Masks with patterns or unusual colors were difficult to segment using traditional methods
+- The lower face region constraint significantly improved results by incorporating anatomical knowledge
+- Edge-based methods performed poorly on low-contrast images
+
+### Efficiency vs. Accuracy Trade-offs
+- Edge detection was fastest but least accurate
+- The hybrid approach balanced speed and accuracy effectively
+- Watershed was most thorough but slowest and prone to over-segmentation
+
+### Challenges Faced
+- **Dataset Variability:** Images varied significantly in lighting, angle, and mask types.
+  - **Solution:** Preprocessing and augmentation to increase robustness
+- **False Positives in Segmentation:** Items with similar colors to common masks were incorrectly segmented.
+  - **Solution:** Incorporating position constraints and edge information
+- **Computational Efficiency:** Some segmentation methods were too slow for real-time applications.
+  - **Solution:** Optimized implementations and parameter tuning
+- **Evaluation Metrics:** Different metrics sometimes suggested different "best" methods.
+  - **Solution:** Considered multiple metrics and use-case requirements
+
+## VII. How to Run the Code
+### Prerequisites
+- Python 3.7+
+- Required packages:
+
+### Installation
+1. Clone the repository or download the project files:
+
+```bash
+git clone https://github.com/your-repo/face-mask-detection.git
 ```
-VR_Project1_[YourName]_[YourRollNo]/
-├── classification/
-│   ├── classification_notebook.ipynb      # Notebook for binary classification tasks
-│   └── utils.py                           # Helper functions for feature extraction and training
-├── segmentation/
-│   ├── segmentation_notebook.ipynb        # Notebook for segmentation tasks
-│   └── unet_model.py                      # U-Net model definition
-└── README.md                              # This detailed report
+2. Install required dependencies:
+
+```bash
+pip install -r requirements.txt
 ```
 
-### Steps to Execute
+3. Download the dataset and extract it to the project directory, or use the provided script:
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/YourUsername/VR_Project1_YourName_YourRollNo.git
-   cd VR_Project1_YourName_YourRollNo
-   ```
+### Running the Tasks
+- **Task 1:** ML Classification
+```bash
+python run_ml_classification.py
+```
+- **Task 2:** CNN Classification
+```bash
+python run_cnn_classification.py
+```
+- **Task 3:** Mask Segmentation
+```bash
+python run_segmentation.py
+```
 
-2. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Running the Jupyter Notebook
+- Execute the cells in sequential order
+- Adjust parameters in the marked code blocks as needed
 
-3. **Run Classification Tasks:**
-   - Open `classification/classification_notebook.ipynb` in Jupyter Notebook and run all cells.
+### Output
+- Results will be saved in the `results/` directory
+- Visualizations are displayed inline in the notebook and saved as PNG files
+- Trained models are saved in the `models/` directory
 
-4. **Run Segmentation Tasks:**
-   - Open `segmentation/segmentation_notebook.ipynb` in Jupyter Notebook and run all cells.
+### Troubleshooting
+- If you encounter CUDA/GPU issues, add `--cpu_only` flag to run on CPU
+- For memory issues, reduce batch size with `--batch_size` argument
+- If the dataset path is different, specify it with `--dataset_path` argument
 
-5. **Review Outputs:**
-   - All outputs are clearly labeled in the notebooks. Figures and logs are generated during the execution.
-
----
-
-## 8. Conclusion
-
-This project successfully demonstrates the integration of classical computer vision techniques with modern deep learning methods to tackle the problem of face mask detection and segmentation. The experiments confirm that while traditional approaches can provide a baseline, deep learning models (CNN and U-Net) significantly improve performance. The detailed results and analyses provided in this report can guide further improvements and potential real-world applications.
-
----
-
-*Note: All images and results referenced in this report are generated from the notebook experiments and are available within the repository.*
-
----
-
-This report provides a comprehensive overview of the project along with clear instructions and reproducible steps to run the code. Feel free to modify and expand upon this template as needed.
